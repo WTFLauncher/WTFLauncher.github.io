@@ -106,13 +106,13 @@
 <ul>
   <li><strong>Microsoft 账户</strong>：走标准 OAuth 2.0（授权码 + PKCE 与设备码两种流），随后按官方流程换取 Xbox Live 与 Minecraft Services 令牌，并读取账户的游戏所有权信息，之后才提供启动。使用微软登录需要一个已通过 Mojang 应用登记的 AppID；本仓库当前自带的 AppID 尚在申请过程中，因此该路径在默认构建里不可用，登录界面会明确提示，用户也可以自行填入已授权的 AppID。</li>
   <li><strong>离线账户</strong>：不经过任何身份服务，只在本地生成玩家名与 UUID，用于局域网或自行配置的服务端。它不访问、也不绕过任何官方认证端点。</li>
-  <li><strong>authlib-injector</strong>：面向第三方登录服务器的既有机制，由玩家自行选择服务端与账户。</li>
 </ul>
+<p class="muted">第三方登录服务器（authlib-injector）目前<strong>尚未实现</strong>，本页此前的表述有误；它排在功能计划里，实现之前不再声称支持。</p>
 
 <h2>隐私</h2>
 <ul>
   <li>没有自建的分析服务，不收集使用数据、不上传实例内容。</li>
-  <li>网络请求只发往：Mojang 与微软的官方端点、玩家配置的镜像、Modrinth（模组浏览）、以及玩家自行填写的第三方登录或皮肤服务。</li>
+  <li>网络请求只发往：Mojang 与微软的官方端点、玩家配置的镜像、Modrinth（模组浏览），以及玩家自行配置的翻译源。</li>
   <li>游戏截图分享（Imgur）在本项目中未配置，功能默认不启用。</li>
 </ul>
 
