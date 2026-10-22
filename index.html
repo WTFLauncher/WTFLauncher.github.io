@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WTF Launcher — 面向国内网络环境的开源 Minecraft 启动器</title>
+<meta name="description" content="WTF Launcher 是基于 Prism Launcher 的开源 Minecraft: Java Edition 启动器，面向国内网络环境，提供下载镜像、Java 自动配置、OptiFine 安装与多种账户方式。">
+<style>
+  :root {
+    --fg: #1c1e21;
+    --muted: #5b6470;
+    --line: #e3e6ea;
+    --bg: #ffffff;
+    --accent: #1f6feb;
+    --card: #f7f8fa;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fg: #e6e8ea;
+      --muted: #9aa4af;
+      --line: #2c3138;
+      --bg: #16181b;
+      --accent: #6cb2ff;
+      --card: #1d2024;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    color: var(--fg);
+    background: var(--bg);
+    font: 16px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  }
+  header {
+    border-bottom: 1px solid var(--line);
+    padding: 40px 20px 32px;
+  }
+  main, footer > div { max-width: 880px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .brand img { width: 64px; height: 64px; }
+  h1 { font-size: 28px; margin: 0; letter-spacing: .5px; }
+  .tag { color: var(--muted); margin: 6px 0 0; font-size: 15px; }
+  h2 { font-size: 20px; margin: 40px 0 12px; padding-top: 8px; }
+  p, li { color: var(--fg); }
+  a { color: var(--accent); }
+  .buttons { display: flex; gap: 12px; flex-wrap: wrap; margin: 22px 0 0; }
+  .button {
+    display: inline-block; padding: 10px 18px; border: 1px solid var(--line);
+    border-radius: 8px; text-decoration: none; background: var(--card); font-size: 15px;
+  }
+  .button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  ul { padding-left: 22px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin: 16px 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; }
+  th, td { border-bottom: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+  code { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 14px; }
+  footer { border-top: 1px solid var(--line); margin-top: 48px; padding: 28px 20px; color: var(--muted); font-size: 14px; }
+  .en { border-left: 3px solid var(--line); padding-left: 18px; }
+  .en h2 { margin-top: 0; }
+  .muted { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img src="assets/icon.png" alt="WTF Launcher 图标" width="64" height="64">
+    <div>
+      <h1>WTF Launcher</h1>
+      <p class="tag">基于 Prism Launcher 的开源 Minecraft: Java Edition 启动器，为国内网络环境做了下载镜像、Java 自动配置与 OptiFine 支持。</p>
+    </div>
+  </div>
+  <div class="buttons">
+    <a class="button primary" href="https://github.com/WTFLauncher/WTFLauncher/releases">下载最新版</a>
+    <a class="button" href="https://github.com/WTFLauncher/WTFLauncher">源代码</a>
+    <a class="button" href="https://github.com/WTFLauncher/WTFLauncher/issues">问题反馈</a>
+  </div>
+</header>
+
+<main>
+
+<h2>它解决什么问题</h2>
+<p>国内玩家用通用启动器时最常碰到三件事：Mojang 的下载端点慢或连不上、Java 运行库要自己找、以及模组与整合包的下载入口不好用。WTF Launcher 不改动上游的功能结构，只在这三点上补齐，并且把所有下载行为都留在玩家自己的机器与官方端点之间。</p>
+
+<h2>当前功能</h2>
+<ul>
+  <li><strong>实例管理</strong>：每个实例独立目录、独立版本组件，支持导入导出与模组、资源包、世界的浏览与下载（Modrinth）。</li>
+  <li><strong>下载镜像</strong>：游戏本体、资源文件、支持库三类分别配置镜像源与尝试顺序，任一源失败自动按序回退，官方源始终保留为最后兜底。详见下一节。</li>
+  <li><strong>Java 自动配置</strong>：按版本要求自动选择或下载 Java 运行库，可限定允许的 Java 版本区间，也支持把 Java 放在实例目录内优先使用。版本通过实际运行程序确认，不按目录名猜测。</li>
+  <li><strong>OptiFine</strong>：在版本页直接浏览并安装 OptiFine。安装使用 OptiFine 官方安装器本身，启动器只负责下载、在临时目录中运行它并收集结果，不复制、不重制 OptiFine 的任何补丁逻辑。</li>
+  <li><strong>模组加载器</strong>：NeoForge、Forge、Fabric、Quilt、LiteLoader，与上游一致。</li>
+  <li><strong>中文界面</strong>：翻译由本项目自建的静态源提供，启动时校验文件哈希后加载。</li>
+</ul>
+
+<h2>下载镜像是怎么做的</h2>
+<p>镜像只做一件事：把下载请求换成另一个主机上的同一份文件。路径规则按内容类型固定，且只对 Mojang 自己的主机生效。</p>
+<table>
+  <tr><th>内容</th><th>官方主机</th><th>镜像上的位置</th></tr>
+  <tr><td>版本清单、客户端 jar、Java 运行库</td><td>piston-meta / piston-data / launcher / launchermeta</td><td>镜像根路径，目录结构不变</td></tr>
+  <tr><td>资源文件（assets）</td><td>resources.download.minecraft.net</td><td>镜像的 <code>/assets</code> 前缀</td></tr>
+  <tr><td>支持库与加载器库</td><td>libraries.minecraft.net 等 maven 主机</td><td>有序的前缀列表，逐条尝试</td></tr>
+</table>
+<p class="muted">内置的镜像源为 BMCLAPI 与三所教育网镜像的 maven 树。Modrinth、CurseForge 等内容平台的主机<strong>不在重写范围内</strong>，它们的文件始终从各自官方端点下载。所有下载都会校验元数据里给定的哈希，镜像返回错误内容会被当作校验失败处理，而不是静默接受。</p>
+
+<h2>账户与登录</h2>
+<ul>
+  <li><strong>Microsoft 账户</strong>：走标准 OAuth 2.0（授权码 + PKCE 与设备码两种流），随后按官方流程换取 Xbox Live 与 Minecraft Services 令牌，并读取账户的游戏所有权信息，之后才提供启动。使用微软登录需要一个已通过 Mojang 应用登记的 AppID；本仓库当前自带的 AppID 尚在申请过程中，因此该路径在默认构建里不可用，登录界面会明确提示，用户也可以自行填入已授权的 AppID。</li>
+  <li><strong>离线账户</strong>：不经过任何身份服务，只在本地生成玩家名与 UUID，用于局域网或自行配置的服务端。它不访问、也不绕过任何官方认证端点。</li>
+  <li><strong>authlib-injector</strong>：面向第三方登录服务器的既有机制，由玩家自行选择服务端与账户。</li>
+</ul>
+
+<h2>隐私</h2>
+<ul>
+  <li>没有自建的分析服务，不收集使用数据、不上传实例内容。</li>
+  <li>网络请求只发往：Mojang 与微软的官方端点、玩家配置的镜像、Modrinth（模组浏览）、以及玩家自行填写的第三方登录或皮肤服务。</li>
+  <li>游戏截图分享（Imgur）在本项目中未配置，功能默认不启用。</li>
+</ul>
+
+<h2>许可与出处</h2>
+<p>本程序以 GPL-3.0-only 发布，源码全部公开。它是 Prism Launcher 的派生作品，Prism Launcher 又是 PolyMC 与 MultiMC 的派生作品；上游的版权声明与许可证在程序内“关于 → 许可证”页以及仓库的 <code>COPYING.md</code> 中完整保留。</p>
+<p class="muted">本项目不托管、不再分发任何 Minecraft 客户端文件、资源或模组内容；这些内容始终由玩家自己的机器从 Mojang 或对应内容平台的官方端点下载。Minecraft 是 Mojang Studios 与 Microsoft Corporation 的商标。</p>
+
+<h2 style="margin-top:44px">For the Minecraft / Mojang app review team</h2>
+<div class="en">
+  <p><strong>What this is.</strong> WTF Launcher is a free, open-source Minecraft: Java Edition launcher for players in mainland China, a GPL-3.0 derivative of Prism Launcher. Everything is published in the repository linked above; there is no closed or obfuscated component, and no binaries are hosted anywhere else.</p>
+
+  <p><strong>What we are asking for.</strong> Approval of our own application (client) ID for the Java game service APIs, so that our users can sign in with their own Microsoft accounts inside our launcher.</p>
+
+  <p><strong>The authentication chain we implement.</strong> Authorization code with PKCE, or the device code flow, against the Microsoft identity platform; then the standard Xbox Live user authentication, XSTS authorization, and <code>login_with_xbox</code> call to Minecraft Services. We read the game entitlement returned by Minecraft Services for that account, and the launcher only offers to start the game for an account that owns it. We do not call the endpoints to obtain content for redistribution, and we do not cache or mirror any Minecraft Services response.</p>
+
+  <p><strong>Why our own ID rather than an existing one.</strong> Upstream Prism Launcher's source states that a derivative work must ship its own credentials. Using another project's application ID would attribute our traffic to them and leave them unable to revoke it; we would rather hold our own.</p>
+
+  <p><strong>Load on your servers and CDN.</strong> API calls happen only when a user opens an account, browses, or launches. One game file download per version per user, from Mojang's own endpoints. No crawling, no bulk indexing, no background polling, and no redistribution of downloaded files from our side — the mirrors we ship rewrite Mojang-hosted file URLs only, and are used solely by the individual player who enables them.</p>
+
+  <p><strong>Offline play, stated plainly.</strong> Like upstream Prism Launcher, PolyMC and MultiMC, the launcher can also create local profiles that do not contact an identity service, for players on a local network or on servers they run themselves. The Microsoft sign-in path described above always performs the ownership check, and we are not asking for access in order to bypass it. If that combination is not eligible under the current policy, please say so in one line and we will not resubmit.</p>
+
+  <p><strong>Links.</strong> Source: <a href="https://github.com/WTFLauncher/WTFLauncher">github.com/WTFLauncher/WTFLauncher</a> · Releases: <a href="https://github.com/WTFLauncher/WTFLauncher/releases">/releases</a> · Contact: open an issue in the repository, or use the email given on the application form.</p>
+</div>
+
+</main>
+
+<footer>
+  <div>
+    WTF Launcher · GPL-3.0-only · 派生自 Prism Launcher，其上游为 PolyMC 与 MultiMC · Minecraft 是 Mojang Studios 与 Microsoft Corporation 的商标 · 本站不收集访问数据
+  </div>
+</footer>
+
+</body>
+</html>
